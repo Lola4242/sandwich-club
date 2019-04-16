@@ -37,6 +37,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.json:json:20140107'
+    implementation 'com.android.support:design:28.0.0'
 
 
 }
