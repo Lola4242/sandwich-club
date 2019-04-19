@@ -21,6 +21,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView dIngredientsTextView;
     private TextView dAlsoKnownAsTextView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,23 +54,12 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
 
-        setTitle(sandwich.getMainName());
 
-        dOriginTextView.setText(sandwich.getPlaceOfOrigin());
-        dDescriptionTextView.setText(sandwich.getDescription());
-
-        for(String alias: sandwich.getAlsoKnownAs()){
-            dAlsoKnownAsTextView.append(alias);
-        }
-
-        for(String ingredient : sandwich.getIngredients()){
-            dIngredientsTextView.append(ingredient + "\n\n\n");
-        }
 
     }
 
@@ -78,7 +68,23 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
+        setTitle(sandwich.getMainName());
 
+        dOriginTextView.setText(sandwich.getPlaceOfOrigin());
+        dDescriptionTextView.setText(sandwich.getDescription());
+
+        for(int i = 0; i< sandwich.getAlsoKnownAs().size(); i++){
+            String alias = sandwich.getAlsoKnownAs().get(i);
+            if(i != 0){
+                dAlsoKnownAsTextView.append(", ");
+            }
+            dAlsoKnownAsTextView.append(alias);
+
+        }
+
+        for(String ingredient : sandwich.getIngredients()){
+            dIngredientsTextView.append(" • " + ingredient + "\n");
+        }
     }
 }
